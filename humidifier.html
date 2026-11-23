@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f4eb">
+  <meta name="description" content="查看南风润物陶瓷加湿器的多角度图、结构拆解与 Blender 动画。">
+  <title>陶瓷加湿器｜南风润物 NANDEW</title>
+  <link rel="icon" href="assets/icon.png">
+  <link rel="stylesheet" href="site.css?v=2">
+  <script src="site.js?v=2" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳至正文</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html" aria-label="南风润物首页"><img src="assets/nandew-logo.webp" alt="南风润物 NANDEW" width="136" height="68"></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav"><span class="menu-icon" aria-hidden="true"></span>菜单</button>
+      <nav id="main-nav" class="site-nav" aria-label="主导航">
+        <a href="index.html">首页</a>
+        <a href="products.html" aria-current="location">产品</a>
+        <a href="ip.html">品牌 IP</a>
+        <a href="craft.html">石湾陶艺</a>
+        <a href="about.html">关于我们</a>
+        <a href="contact.html" class="nav-contact">合作联系</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap interior product-detail" id="main">
+    <nav class="breadcrumb" aria-label="页面路径"><a href="index.html">首页</a><span aria-hidden="true">/</span><a href="products.html">产品</a><span aria-hidden="true">/</span><span aria-current="page">陶瓷加湿器</span></nav>
+    <div class="product-overview">
+      <header class="product-title">
+        <h1>南风润物陶瓷加湿器</h1>
+        <p>浅青釉面、暖白陶壳与陶橙色出雾口。外罩可提起，露出独立的透明水箱。</p>
+      </header>
+      <section class="product-media" data-product-gallery aria-label="加湿器多角度展示">
+        <div class="media-stage">
+          <figure class="media-panel" id="media-front">
+            <img src="assets/humidifier-front.webp" alt="组装完成的南风润物陶瓷加湿器，正面可见标识、按键和指示灯" width="1080" height="1200" fetchpriority="high">
+          </figure>
+          <figure class="media-panel" id="media-side" hidden>
+            <img src="assets/humidifier-side.webp" alt="南风润物陶瓷加湿器侧面，青釉区与暖白陶壳的交界" width="702" height="780" loading="lazy">
+          </figure>
+          <figure class="media-panel" id="media-rear" hidden>
+            <img src="assets/humidifier-rear.webp" alt="南风润物陶瓷加湿器的背面及底座" width="702" height="780" loading="lazy">
+          </figure>
+          <figure class="media-panel" id="media-top" hidden>
+            <img src="assets/humidifier-top.webp" alt="从上方查看环形出雾口和凹入式顶面" width="702" height="780" loading="lazy">
+          </figure>
+          <figure class="media-panel" id="media-parts" hidden>
+            <img src="assets/humidifier-parts.webp" alt="陶瓷外罩抬起，露出透明水箱与底座" width="948" height="1200" loading="lazy">
+          </figure>
+          <figure class="media-panel media-panel--video" id="media-video" hidden>
+            <video controls playsinline preload="none" poster="assets/humidifier-front.webp" aria-label="南风润物陶瓷加湿器环绕与拆解演示">
+              <source src="assets/humidifier-demo.mp4" type="video/mp4">
+              <a href="assets/humidifier-demo.mp4">打开产品视频</a>
+            </video>
+          </figure>
+        </div>
+        <div class="media-toolbar">
+          <p data-media-status aria-live="polite">组装</p>
+          <button type="button" class="media-zoom underlined" data-media-zoom hidden>查看大图</button>
+        </div>
+        <div class="media-thumbnails" role="group" aria-label="切换产品图片和视频" hidden>
+          <button type="button" class="media-thumb" data-media="front" aria-controls="media-front" aria-pressed="true">
+            <span class="thumb-image"><img src="assets/humidifier-front.webp" alt="" loading="lazy"></span>
+            <span>组装</span>
+          </button>
+          <button type="button" class="media-thumb" data-media="side" aria-controls="media-side" aria-pressed="false">
+            <span class="thumb-image"><img src="assets/humidifier-side.webp" alt="" loading="lazy"></span>
+            <span>侧面</span>
+          </button>
+          <button type="button" class="media-thumb" data-media="rear" aria-controls="media-rear" aria-pressed="false">
+            <span class="thumb-image"><img src="assets/humidifier-rear.webp" alt="" loading="lazy"></span>
+            <span>背面</span>
+          </button>
+          <button type="button" class="media-thumb" data-media="top" aria-controls="media-top" aria-pressed="false">
+            <span class="thumb-image"><img src="assets/humidifier-top.webp" alt="" loading="lazy"></span>
+            <span>俯视</span>
+          </button>
+          <button type="button" class="media-thumb" data-media="parts" aria-controls="media-parts" aria-pressed="false">
+            <span class="thumb-image"><img src="assets/humidifier-parts.webp" alt="" loading="lazy"></span>
+            <span>拆解</span>
+          </button>
+          <button type="button" class="media-thumb" data-media="video" aria-controls="media-video" aria-pressed="false">
+            <span class="thumb-image thumb-video"><img src="assets/humidifier-front.webp" alt="" loading="lazy"><span aria-hidden="true">▶</span></span>
+            <span>视频</span>
+          </button>
+        </div>
+        <noscript>
+          <p>查看其他素材 <a class="underlined" href="assets/humidifier-parts.webp">拆解图</a> <a class="underlined" href="assets/humidifier-demo.mp4">环绕与拆解视频</a></p>
+        </noscript>
+        <dialog class="media-dialog" aria-label="产品大图">
+          <form method="dialog"><button class="button button--outline" type="submit" autofocus>关闭</button></form>
+          <img alt="">
+        </dialog>
+      </section>
+      <aside class="product-facts" aria-label="产品结构">
+        <h2>结构与设计</h2>
+        <dl>
+          <div><dt>陶瓷外罩</dt><dd>青釉与暖白双釉曲面，外罩可整体取下。</dd></div>
+          <div><dt>透明水箱</dt><dd>取下外罩后可从水箱上方加水。</dd></div>
+          <div><dt>出雾与灯光</dt><dd>顶部为环形出雾口，底部设暖色灯带。</dd></div>
+        </dl>
+        <a class="button button--ink" href="contact.html?topic=product">咨询这款产品</a>
+      </aside>
+    </div>
+    <section class="product-story" aria-labelledby="product-story-heading">
+      <figure><img src="assets/humidifier-scene.webp" alt="产品设计图中的加湿器场景，日光下的机身、釉面与暖色灯带" width="624" height="1100" loading="lazy"><figcaption>产品场景设计图</figcaption></figure>
+      <div class="product-story-copy">
+        <p class="home-label">釉色与器型</p>
+        <h2 id="product-story-heading">一抹青釉，延伸到手边</h2>
+        <p>浅青釉面从出雾口延伸到机身一侧，暖白色留给陶壳的大部分曲面。细开片和灯光在场景图里更容易看清。</p>
+        <a class="underlined" href="assets/humidifier-design-sheet.webp" target="_blank" rel="noopener">查看完整产品设计图</a>
+        <a class="product-ip-note" href="ip.html">
+          <img src="assets/hedgehog-greeting.webp" alt="" width="640" height="640" loading="lazy">
+          <span><strong>同样的釉色，也在品牌 IP 身上</strong><span>查看青釉卷刺和陶橙额刺</span></span>
+        </a>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <small>© 南风润物 NANDEW</small>
+      <div><a href="ip.html">品牌 IP</a><a href="craft.html">石湾陶艺</a><a href="contact.html">合作联系</a></div>
+    </div>
+  </footer>
+</body>
+</html>

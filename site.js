@@ -29,45 +29,56 @@ if (menuToggle && mainNav) {
   mobileLayout.addEventListener("change", () => setMenuOpen(false));
 }
 
-const gallery = document.querySelector("[data-gallery]");
+const gallery = document.querySelector("[data-product-gallery]");
 
 if (gallery) {
-  const controls = gallery.querySelector(".gallery-controls");
-  const options = [...controls.querySelectorAll("[data-variant]")];
-  const panels = [...gallery.querySelectorAll(".gallery-panel")];
-  const topDetails = document.querySelector("[data-top-details]");
+  const thumbnails = gallery.querySelector(".media-thumbnails");
+  const choices = [...thumbnails.querySelectorAll("[data-media]")];
+  const panels = [...gallery.querySelectorAll(".media-panel")];
+  const status = gallery.querySelector("[data-media-status]");
+  const zoom = gallery.querySelector("[data-media-zoom]");
+  const dialog = gallery.querySelector("dialog");
+  const enlargedImage = dialog.querySelector("img");
+  let activePanel = panels[0];
 
-  function showVariant(variant) {
-    const active = options.some((button) => button.dataset.variant === variant) ? variant : "top";
-    for (const panel of panels) panel.hidden = panel.id !== active;
-    for (const button of options) {
-      button.setAttribute("aria-pressed", String(button.dataset.variant === active));
-    }
-    topDetails.hidden = active !== "top";
+  function showMedia(choice) {
+    const panel = gallery.querySelector("#" + choice.getAttribute("aria-controls"));
+    if (activePanel !== panel) activePanel.querySelector("video")?.pause();
+    for (const item of panels) item.hidden = item !== panel;
+    for (const item of choices) item.setAttribute("aria-pressed", String(item === choice));
+    status.textContent = choice.dataset.media === "video"
+      ? "环绕与拆解演示 · 无声"
+      : choice.textContent.trim();
+    zoom.hidden = !panel.querySelector("img") || typeof dialog.showModal !== "function";
+    activePanel = panel;
   }
 
-  function loadVariantFromUrl() {
-    const params = new URLSearchParams(window.location.search);
-    showVariant(params.get("model") ?? window.location.hash.slice(1));
+  for (const choice of choices) {
+    choice.addEventListener("click", () => showMedia(choice));
   }
 
-  for (const button of options) {
-    button.addEventListener("click", () => {
-      const variant = button.dataset.variant;
-      if (button.getAttribute("aria-pressed") === "true") return;
-      const url = new URL(window.location.href);
-      url.hash = "";
-      if (variant === "top") url.searchParams.delete("model");
-      else url.searchParams.set("model", variant);
-      window.history.pushState(null, "", url);
-      showVariant(variant);
-    });
-  }
+  thumbnails.addEventListener("keydown", (event) => {
+    const index = choices.indexOf(event.target);
+    if (index === -1 || !["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+    event.preventDefault();
+    const offset = event.key === "ArrowLeft" ? -1 : 1;
+    const nextIndex = event.key === "Home" ? 0
+      : event.key === "End" ? choices.length - 1
+      : (index + offset + choices.length) % choices.length;
+    choices[nextIndex].focus();
+    showMedia(choices[nextIndex]);
+  });
 
-  loadVariantFromUrl();
-  controls.hidden = false;
-  window.addEventListener("popstate", loadVariantFromUrl);
-  window.addEventListener("hashchange", loadVariantFromUrl);
+  zoom.addEventListener("click", () => {
+    const image = activePanel.querySelector("img");
+    if (!image) return;
+    enlargedImage.src = image.currentSrc || image.src;
+    enlargedImage.alt = image.alt;
+    dialog.showModal();
+  });
+
+  thumbnails.hidden = false;
+  showMedia(choices[0]);
 }
 
 const inquiry = document.querySelector("[data-inquiry]");
@@ -79,6 +90,8 @@ if (inquiry) {
   const copy = inquiry.querySelector("[data-copy]");
   const status = inquiry.querySelector(".form-status");
 
+  const topic = new URLSearchParams(window.location.search).get("topic");
+  if (topic === "product") type.value = "产品咨询";
   inquiry.hidden = false;
   brief.addEventListener("input", () => brief.setCustomValidity(""));
   inquiry.addEventListener("submit", (event) => {
