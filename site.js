@@ -32,13 +32,17 @@ if (menuToggle && mainNav) {
 const gallery = document.querySelector("[data-product-gallery]");
 
 if (gallery) {
-  const thumbnails = gallery.querySelector(".media-thumbnails");
-  const choices = [...thumbnails.querySelectorAll("[data-media]")];
+  const pagination = gallery.querySelector(".media-pagination");
+  const shortcuts = gallery.querySelector(".media-shortcuts");
+  const choices = [...pagination.querySelectorAll("[data-media]")];
+  const groups = [...shortcuts.querySelectorAll("[data-media-group]")];
   const panels = [...gallery.querySelectorAll(".media-panel")];
   const status = gallery.querySelector("[data-media-status]");
   const zoom = gallery.querySelector("[data-media-zoom]");
   const dialog = gallery.querySelector("dialog");
   const enlargedImage = dialog.querySelector("img");
+  const demo = gallery.querySelector("[data-play-demo]");
+  const video = gallery.querySelector("video");
   let activePanel = panels[0];
 
   function showMedia(choice) {
@@ -46,18 +50,32 @@ if (gallery) {
     if (activePanel !== panel) activePanel.querySelector("video")?.pause();
     for (const item of panels) item.hidden = item !== panel;
     for (const item of choices) item.setAttribute("aria-pressed", String(item === choice));
-    status.textContent = choice.dataset.media === "video"
+    const media = choice.dataset.media;
+    const group = media === "parts" || media === "video" ? media : "front";
+    for (const shortcut of groups) {
+      shortcut.setAttribute("aria-pressed", String(shortcut.dataset.mediaGroup === group));
+    }
+    status.textContent = media === "video"
       ? "环绕与拆解演示 · 无声"
-      : choice.textContent.trim();
+      : choice.getAttribute("aria-label");
     zoom.hidden = !panel.querySelector("img") || typeof dialog.showModal !== "function";
     activePanel = panel;
+  }
+
+  function selectMedia(key) {
+    const choice = choices.find(item => item.dataset.media === key);
+    if (choice) showMedia(choice);
   }
 
   for (const choice of choices) {
     choice.addEventListener("click", () => showMedia(choice));
   }
 
-  thumbnails.addEventListener("keydown", (event) => {
+  for (const shortcut of groups) {
+    shortcut.addEventListener("click", () => selectMedia(shortcut.dataset.mediaGroup));
+  }
+
+  pagination.addEventListener("keydown", (event) => {
     const index = choices.indexOf(event.target);
     if (index === -1 || !["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
     event.preventDefault();
@@ -77,7 +95,20 @@ if (gallery) {
     dialog.showModal();
   });
 
-  thumbnails.hidden = false;
+  if (demo && video) {
+    demo.hidden = false;
+    demo.addEventListener("click", () => {
+      selectMedia("video");
+      video.focus({ preventScroll: true });
+      video.scrollIntoView({ block: "nearest" });
+      video.play().catch(() => {
+        status.textContent = "请使用播放器播放演示视频。";
+      });
+    });
+  }
+
+  pagination.hidden = false;
+  shortcuts.hidden = false;
   showMedia(choices[0]);
 }
 
