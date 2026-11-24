@@ -34,6 +34,7 @@ const gallery = document.querySelector("[data-product-gallery]");
 if (gallery) {
   const pagination = gallery.querySelector(".media-pagination");
   const shortcuts = gallery.querySelector(".media-shortcuts");
+  const arrows = gallery.querySelector(".media-arrows");
   const choices = [...pagination.querySelectorAll("[data-media]")];
   const groups = [...shortcuts.querySelectorAll("[data-media-group]")];
   const panels = [...gallery.querySelectorAll(".media-panel")];
@@ -43,6 +44,7 @@ if (gallery) {
   const enlargedImage = dialog.querySelector("img");
   const demo = gallery.querySelector("[data-play-demo]");
   const video = gallery.querySelector("video");
+  let activeChoice = choices[0];
   let activePanel = panels[0];
 
   function showMedia(choice) {
@@ -56,9 +58,10 @@ if (gallery) {
       shortcut.setAttribute("aria-pressed", String(shortcut.dataset.mediaGroup === group));
     }
     status.textContent = media === "video"
-      ? "环绕与拆解演示 · 无声"
+      ? "环绕与拆解"
       : choice.getAttribute("aria-label");
     zoom.hidden = !panel.querySelector("img") || typeof dialog.showModal !== "function";
+    activeChoice = choice;
     activePanel = panel;
   }
 
@@ -75,16 +78,23 @@ if (gallery) {
     shortcut.addEventListener("click", () => selectMedia(shortcut.dataset.mediaGroup));
   }
 
+  function adjacentChoice(choice, offset) {
+    const index = choices.indexOf(choice);
+    return choices[(index + offset + choices.length) % choices.length];
+  }
+
+  for (const arrow of arrows.querySelectorAll("[data-media-step]")) {
+    arrow.addEventListener("click", () => showMedia(adjacentChoice(activeChoice, Number(arrow.dataset.mediaStep))));
+  }
+
   pagination.addEventListener("keydown", (event) => {
-    const index = choices.indexOf(event.target);
-    if (index === -1 || !["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+    if (!choices.includes(event.target) || !["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
     event.preventDefault();
-    const offset = event.key === "ArrowLeft" ? -1 : 1;
-    const nextIndex = event.key === "Home" ? 0
-      : event.key === "End" ? choices.length - 1
-      : (index + offset + choices.length) % choices.length;
-    choices[nextIndex].focus();
-    showMedia(choices[nextIndex]);
+    const next = event.key === "Home" ? choices[0]
+      : event.key === "End" ? choices.at(-1)
+      : adjacentChoice(event.target, event.key === "ArrowLeft" ? -1 : 1);
+    next.focus();
+    showMedia(next);
   });
 
   zoom.addEventListener("click", () => {
@@ -109,6 +119,7 @@ if (gallery) {
 
   pagination.hidden = false;
   shortcuts.hidden = false;
+  arrows.hidden = false;
   showMedia(choices[0]);
 }
 

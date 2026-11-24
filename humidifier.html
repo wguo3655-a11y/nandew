@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f8f4eb">
+  <meta name="theme-color" content="#f8f6f0">
   <meta name="description" content="查看南风润物陶瓷加湿器的多角度图、结构拆解与 Blender 动画。">
   <title>陶瓷加湿器｜南风润物 NANDEW</title>
   <link rel="icon" href="assets/icon.png">
-  <link rel="stylesheet" href="site.css?v=5">
-  <script src="site.js?v=3" defer></script>
+  <link rel="stylesheet" href="site.css?v=6">
+  <script src="site.js?v=4" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">跳至正文</a>
@@ -30,9 +30,8 @@
     <nav class="breadcrumb" aria-label="页面路径"><a href="index.html">首页</a><span aria-hidden="true">/</span><a href="products.html">产品</a><span aria-hidden="true">/</span><span aria-current="page">陶瓷加湿器</span></nav>
     <div class="product-overview" data-product-gallery>
       <header class="product-title">
-        <p class="home-label">南风润物</p>
         <h1>陶瓷加湿器</h1>
-        <p>浅青釉沿着暖白陶壳的曲面落下，露出陶橙色环形出雾口。提起外罩，就能看到独立的透明水箱。</p>
+        <p>暖白陶壳保留细密的开片，浅青釉沿着圆润的肩部落下。取下陶瓷外罩，即可从上方给水箱加水。</p>
       </header>
       <section class="product-media" aria-label="加湿器多角度展示">
         <div class="media-stage" id="product-stage">
@@ -52,11 +51,15 @@
             <img src="assets/humidifier-studio-parts.webp" alt="陶瓷外罩抬起，露出透明水箱与底座" width="1056" height="1056" loading="lazy">
           </figure>
           <figure class="media-panel media-panel--video" id="media-video" hidden>
-            <video controls playsinline preload="none" poster="assets/humidifier-front.webp" aria-label="陶瓷加湿器机身环绕与拆解演示">
+            <video controls playsinline preload="none" poster="assets/humidifier-front.webp" aria-label="陶瓷加湿器机身环绕与拆解演示，无声视频">
               <source src="assets/humidifier-demo.mp4" type="video/mp4">
               <a href="assets/humidifier-demo.mp4">打开产品视频</a>
             </video>
           </figure>
+          <div class="media-arrows" role="group" aria-label="前后浏览产品图和视频" hidden>
+            <button class="media-arrow" type="button" data-media-step="-1" aria-label="上一项" aria-controls="product-stage"></button>
+            <button class="media-arrow" type="button" data-media-step="1" aria-label="下一项" aria-controls="product-stage"></button>
+          </div>
         </div>
         <div class="media-toolbar">
           <p data-media-status aria-live="polite">组装正面</p>
@@ -84,13 +87,10 @@
         </dialog>
       </section>
       <section class="product-facts" aria-labelledby="finish-heading">
-        <div class="product-finish">
-          <p class="product-minor" id="finish-heading">机身配色</p>
-          <div><span class="finish-swatch" aria-hidden="true"></span><span>青釉 / 暖白</span></div>
-        </div>
+        <div class="product-finish"><p class="product-minor" id="finish-heading">机身配色</p><div><span class="finish-swatch" aria-hidden="true"></span>浅青釉与暖白</div></div>
         <div class="product-actions">
           <a class="button button--ink" href="contact.html?topic=product">咨询产品</a>
-          <button type="button" class="media-zoom underlined" data-play-demo hidden>播放拆解演示</button>
+          <button type="button" class="media-zoom" data-play-demo hidden>播放拆解演示</button>
         </div>
         <div class="product-specs">
           <h2>结构与设计</h2>
@@ -113,7 +113,7 @@
       <figure><img src="assets/humidifier-scene.webp" alt="加湿器场景设计图，侧光照亮陶壳的细开片和底部灯带" width="624" height="1100" loading="lazy"></figure>
       <div class="product-story-copy">
         <h2 id="product-story-heading">釉面细节</h2>
-        <p>侧光能照出陶壳的细开片，也让青釉与暖白的交界更清楚。</p>
+        <p>从侧光下看，浅青釉与暖白陶壳的交界更清楚。釉面的细开片，从机身外侧延伸至弧形肩部。</p>
         <a class="underlined" href="assets/humidifier-design-sheet.webp" target="_blank" rel="noopener">查看完整产品设计图</a>
       </div>
     </section>
@@ -121,7 +121,7 @@
   <footer class="site-footer">
     <div class="wrap footer-inner">
       <small>© 南风润物 NANDEW</small>
-      <div><a href="ip.html">品牌 IP</a><a href="craft.html">石湾陶艺</a><a href="contact.html">合作联系</a></div>
+      <nav aria-label="页脚导航"><a href="products.html">产品</a><a href="ip.html">品牌 IP</a><a href="craft.html">石湾陶艺</a><a href="contact.html">合作联系</a></nav>
     </div>
   </footer>
 </body>
